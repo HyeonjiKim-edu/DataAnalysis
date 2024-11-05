@@ -13,7 +13,7 @@
         nav { text-align: center; margin-top: 15px; }
         nav a { color: #E4E4E4; font-size: 1.3rem; margin: 0 15px; text-decoration: none; }
         nav a:hover { color: #FFFFFF; text-decoration: underline; }
-        section { margin: 20px; padding: 15px; border-radius: 8px; background-color: #1A1A3A; animation: fadeInUp 1.5s ease-out; }
+        section { margin: 20px; padding: 15px; border-radius: 8px; background-color: #1A1A3A; animation: fadeInUp 1.5s ease-out; text-align: center; }
         section h2 { color: #A3A3A3; font-size: 1.8rem; margin-bottom: 10px; text-align: center; }
         footer { text-align: center; padding: 20px 0; font-size: 0.9rem; border-top: 1px solid #555; }
         section img { display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5); }
@@ -28,15 +28,18 @@
             color: #E4E4E4;
             text-decoration: underline;
         }
+        
         /* 2단 레이아웃 스타일 */
         .studying-container {
             display: flex;
             justify-content: space-between;
+            text-align: left; /* 왼쪽 정렬 */
         }
 
         .study-list {
             flex: 1;
             padding-right: 20px;
+            text-align: left; /* 왼쪽 정렬 */
         }
 
         .schedule-table {
@@ -50,6 +53,7 @@
             align-items: center; /* 세로 중앙 정렬 */
             justify-content: center; /* 가로 중앙 정렬 */
             height: auto; /* 내용물 높이에 맞춰 조정 */
+            text-align: center; /* 표 내부의 내용 중앙 정렬 */
         }
 
         .schedule-table table {
@@ -63,6 +67,19 @@
             border: 1px solid #adadad;
             color: #FFFFFF;
         }
+
+        /* 반응형 레이아웃: 화면 너비가 768px 이하일 때 */
+        @media (max-width: 768px) {
+            .studying-container {
+                flex-direction: column; /* 세로 배치로 변경 */
+                align-items: center; /* 가운데 정렬 */
+            }
+            .study-list, .schedule-table {
+                width: 100%; /* 화면 크기에 맞춰 너비를 100%로 */
+                margin: 10px 0; /* 상하 여백 추가 */
+            }
+        }
+
         /* 애니메이션 효과 */
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -156,7 +173,7 @@
     </section>
     
     <section>
-        <img src="image/night.jpg" width="560" alt="violet night">
+        <img src="../1장/night.jpg" width="560" alt="violet night">
     </section>
 
     <footer>
