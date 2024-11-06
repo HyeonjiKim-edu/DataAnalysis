@@ -6,89 +6,152 @@
     <title>My Homepage</title>
     <style>
         /* 기본 설정 */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; color: #E4E4E4; }
-        body { background-color: #0A0A2A; color: #A3A3A3; line-height: 1.6; }
-        header { text-align: center; padding: 20px 0; border-bottom: 1px solid #555; }
-        header h1 { color: #FFFFFF; font-size: 2.5rem; animation: fadeIn 2s ease-in-out; }
-        nav { text-align: center; margin-top: 15px; }
-        nav a { color: #E4E4E4; font-size: 1.3rem; margin: 0 15px; text-decoration: none; }
-        nav a:hover { color: #FFFFFF; text-decoration: underline; }
-        section { margin: 20px; padding: 15px; border-radius: 8px; background-color: #1A1A3A; animation: fadeInUp 1.5s ease-out; text-align: center; }
-        section h2 { color: #A3A3A3; font-size: 1.8rem; margin-bottom: 10px; text-align: center; }
-        footer { text-align: center; padding: 20px 0; font-size: 0.9rem; border-top: 1px solid #555; }
-        section img { display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5); }
-        iframe { display: block; margin: 20px auto; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; color: #E4E4E4; }
+body { background-color: #0A0A2A; color: #A3A3A3; line-height: 1.6; transition: background-color 0.3s, color 0.3s; }
+header { text-align: center; padding: 20px 0; border-bottom: 1px solid #555; }
+header h1 { color: #FFFFFF; font-size: 2.5rem; animation: fadeIn 2s ease-in-out; }
+nav { text-align: center; margin-top: 15px; }
+nav a { color: #E4E4E4; font-size: 1.3rem; margin: 0 15px; text-decoration: none; }
+nav a:hover { color: #FFFFFF; text-decoration: underline; }
+section { margin: 20px; padding: 15px; border-radius: 8px; background-color: #1A1A3A; animation: fadeInUp 1.5s ease-out; text-align: center; }
+section h2 { color: #A3A3A3; font-size: 1.8rem; margin-bottom: 10px; text-align: center; }
+footer { text-align: center; padding: 20px 0; font-size: 0.9rem; border-top: 1px solid #555; }
+section img { display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5); }
+iframe { display: block; margin: 20px auto; }
 
-        /* GitHub 링크 스타일 */
-        a[href*="github.com"] {
-            color: #A3A3A3;
-            text-decoration: none;
-        }
-        a[href*="github.com"]:hover {
-            color: #E4E4E4;
-            text-decoration: underline;
-        }
-        
-        /* 2단 레이아웃 스타일 */
-        .studying-container {
-            display: flex;
-            justify-content: space-between;
-            text-align: left; /* 왼쪽 정렬 */
-        }
+/* 다크모드/라이트모드 토글 버튼 스타일 */
+.toggle-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+.toggle-switch {
+    position: relative;
+    width: 50px;
+    height: 25px;
+    background-color: #ddd;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.toggle-switch::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #fff;
+    top: 2.5px;
+    left: 2.5px;
+    transition: transform 0.3s;
+}
+.toggle-switch.dark-mode-on {
+    background-color: #4e4e4e;
+}
+.toggle-switch.dark-mode-on::before {
+    transform: translateX(25px);
+    background-color: #e4e4e4;
+}
 
-        .study-list {
-            flex: 1;
-            padding-right: 20px;
-            text-align: left; /* 왼쪽 정렬 */
-        }
+/* 2단 레이아웃 스타일 */
+.studying-container {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+}
+.study-list {
+    flex: 1;
+    padding-right: 20px;
+    text-align: left;
+}
+.schedule-table {
+    flex: 0.8;
+    margin: auto;
+    background-color: rgba(87, 87, 87, 0.8);
+    border-radius: 8px;
+    padding: 10px;
+    color: #FFFFFF;
+    text-align: center;
+}
+.schedule-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.schedule-table th, .schedule-table td {
+    padding: 10px;
+    border: 1px solid #adadad;
+    color: #FFFFFF;
+}
 
-        .schedule-table {
-            flex: 0.8; /* 너비를 줄여 가운데로 배치 */
-            margin: auto; /* 좌우 여백을 자동으로 설정해 중앙 배치 */
-            background-color: rgba(87, 87, 87, 0.8); /* 반투명 배경색 */
-            border-radius: 8px;
-            padding: 5px 10px; /* 위아래 패딩을 줄여 배경색 높이 축소 */
-            color: #FFFFFF; /* 글자색을 흰색으로 */
-            display: flex;
-            align-items: center; /* 세로 중앙 정렬 */
-            justify-content: center; /* 가로 중앙 정렬 */
-            height: auto; /* 내용물 높이에 맞춰 조정 */
-            text-align: center; /* 표 내부의 내용 중앙 정렬 */
-        }
+/* 반응형 레이아웃 */
+@media (max-width: 768px) {
+    .studying-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .study-list, .schedule-table {
+        width: 100%;
+        margin: 10px 0;
+    }
+}
 
-        .schedule-table table {
-            width: 100%; /* 표 너비를 컨테이너 너비에 맞춤 */
-            border-collapse: collapse;
-        }
+/* 다크모드 */
+.dark-mode {
+    background-color: #0A0A2A;
+    color: #A3A3A3;
+}
+.dark-mode section {
+    background-color: #1A1A3A;
+}
 
-        .schedule-table th, .schedule-table td {
-            padding: 10px; /* 표 내부 여백 */
-            text-align: center;
-            border: 1px solid #adadad;
-            color: #FFFFFF;
-        }
+/* 라이트 모드 */
+.light-mode {
+    background-color: #FFFFFF;
+    color: #000000; /* 기본 텍스트 색상 검정 */
+}
 
-        /* 반응형 레이아웃: 화면 너비가 768px 이하일 때 */
-        @media (max-width: 768px) {
-            .studying-container {
-                flex-direction: column; /* 세로 배치로 변경 */
-                align-items: center; /* 가운데 정렬 */
-            }
-            .study-list, .schedule-table {
-                width: 100%; /* 화면 크기에 맞춰 너비를 100%로 */
-                margin: 10px 0; /* 상하 여백 추가 */
-            }
-        }
+.light-mode header h1, .light-mode section h2 {
+    color: #333333; /* 헤더와 섹션 제목은 짙은 회색 */
+}
 
-        /* 애니메이션 효과 */
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.light-mode nav a {
+    color: #333333; /* 네비게이션 링크도 짙은 회색 */
+}
+
+.light-mode nav a:hover {
+    color: #000000; /* 링크에 마우스를 올렸을 때 검정색으로 */
+}
+
+.light-mode section {
+    background-color: #f0f0f0; /* 섹션 배경 옅은 회색 */
+}
+
+.light-mode footer {
+    color: #555555; /* 푸터 텍스트 색상 짙은 회색 */
+}
+
+/* 본문 텍스트 색상 */
+.light-mode p, .light-mode li, .light-mode h3 {
+    color: #333333; /* 본문과 리스트 항목도 짙은 회색으로 */
+}
+
+/* 강조 텍스트와 특정 링크 색상 */
+.light-mode h3 b, .light-mode a[href*="github.com"] {
+    color: #000000; /* 이름과 깃허브 링크를 검정색으로 */
+}
     </style>
 </head>
 <body>
     <header>
         <h1>✨ My Homepage</h1>
+        <p> 성장하는 길을 함께 걸어가는 사람 </p>
     </header>
+
+    <!-- 다크모드/라이트모드 토글 스위치 -->
+    <div class="toggle-container">
+        <div id="darkModeToggle" class="toggle-switch"></div>
+    </div>
+
     <nav>
         <a href="#who-am-i">Who am I?</a>
         <a href="#My_studies">My studies</a>
@@ -112,26 +175,27 @@
             <!-- 왼쪽: 목록 -->
             <div class="study-list">
                 <h3> 💻 Computer</h3>
-                  <ul> 
+                <ul>
                     <li>Python</li>
                     <li>Data analysis</li>
                     <li>Web service</li>
                 </ul>
                 <br>
                 <h3> 📖 Research</h3>
-                  <ul> 
+                <ul>
                     <li>Performing experiments and surveys</li>
-                    <li>analyzing data</li>
+                    <li>Analyzing data</li>
                     <li>Presenting research results</li>
+                </ul>
                 <br>
                 <h3> 🤝 Psychology</h3>
-                <ul> 
+                <ul>
                     <li>Research</li>
                     <li>Psychological assessment</li>
                     <li>Counselling</li>
                 </ul>
-
             </div>
+
             <!-- 오른쪽: 스케줄 표 -->
             <div class="schedule-table">
                 <table>
@@ -154,30 +218,58 @@
                             <td>🤝 Psychology</td>
                             <td>💤</td>
                         </tr>
-                        
                     </tbody>
                 </table>
             </div>
         </div>
-    </section>  
+    </section>
 
     <section id="say-hello">
         <h2>Say hello to everyone</h2>
         <p>하루하루 열심히 배우고 있습니다😗</p>
     </section>             
-    
+
     <section id="contact">
         <h2>How to contact me?</h2>
         <p>💌 email_hyeonjikim.edu@gmail.com<br>
            💌 github_<a href="https://github.com/HyeonjiKim-edu" target='_blank'>https://github.com/HyeonjiKim-edu</a></p>
     </section>
-    
+
     <section>
         <img src="image/night.jpg" width="560" alt="violet night">
     </section>
 
     <footer>
-        <p>copyright 2024. Hyeonji Kim. All rights reserved</p> 
+        <p>copyright 2024. Hyeonji Kim. All rights reserved</p>
     </footer>
+
+    <script>
+
+        // 타이핑 애니메이션
+        document.addEventListener('DOMContentLoaded', function() {
+            let textElement = document.querySelector('header p');
+            let text = textElement.textContent;
+            textElement.textContent = '';
+            let index = 0;
+
+            function typeEffect() {
+                if (index < text.length) {
+                    textElement.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(typeEffect, 100); // 타이핑 속도 조절 (ms 단위)
+                }
+            }
+
+            typeEffect();
+        });
+
+
+        // 다크모드/라이트모드 토글 스위치
+        document.getElementById('darkModeToggle').addEventListener('click', function() {
+            document.body.classList.toggle('light-mode');
+            document.body.classList.toggle('dark-mode');
+            this.classList.toggle('dark-mode-on');
+        });
+    </script>
 </body>
 </html>
